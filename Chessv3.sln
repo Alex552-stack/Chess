@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessLogic", "ChessLogic\ChessLogic.csproj", "{DC0E0F62-0889-4CA1-A3F5-A04345B64B61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessUI", "ChessUI\ChessUI.csproj", "{3BD2DFC7-B451-4079-8310-D32E4C281465}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChessServer", "ChessServer\ChessServer.csproj", "{942D2FDF-FC8C-4BA5-A94C-3ABF93286EE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4} = {DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{74B3F305-6A19-411E-BBFA-C083DDF834A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonConverter", "JsonConverter\JsonConverter.csproj", "{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC0E0F62-0889-4CA1-A3F5-A04345B64B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC0E0F62-0889-4CA1-A3F5-A04345B64B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC0E0F62-0889-4CA1-A3F5-A04345B64B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC0E0F62-0889-4CA1-A3F5-A04345B64B61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD2DFC7-B451-4079-8310-D32E4C281465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD2DFC7-B451-4079-8310-D32E4C281465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD2DFC7-B451-4079-8310-D32E4C281465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD2DFC7-B451-4079-8310-D32E4C281465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942D2FDF-FC8C-4BA5-A94C-3ABF93286EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942D2FDF-FC8C-4BA5-A94C-3ABF93286EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942D2FDF-FC8C-4BA5-A94C-3ABF93286EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942D2FDF-FC8C-4BA5-A94C-3ABF93286EE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC0E0F62-0889-4CA1-A3F5-A04345B64B61} = {74B3F305-6A19-411E-BBFA-C083DDF834A7}
+		{DCB706BF-B27E-485D-86E0-D0CE6AA66BE4} = {74B3F305-6A19-411E-BBFA-C083DDF834A7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4823459E-4DAC-4A0A-BC2B-33C3DBAC5089}
+	EndGlobalSection
+EndGlobal
