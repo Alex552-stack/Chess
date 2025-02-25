@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>14</LangVersion>
+    <LangVersion>13</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChessLogic\ChessLogic.csproj" />
-    <ProjectReference Include="..\JsonConverter\JsonConverter.csproj" />
+<!--    <ProjectReference Include="..\JsonConverter\JsonConverter.csproj" />-->
   </ItemGroup>
 
   <ItemGroup>
