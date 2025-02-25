@@ -1,19 +1,16 @@
-﻿using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json;
 using ChessLogic;
-using System.Linq;
 using ChessLogic.Moves;
-
+using ChessLogic.Pieces;
 
 #pragma warning disable CS8603 // Possible null reference return.
 
 
-namespace ChessServer.Services
+namespace JsonConverter
 {
-	public class PieceConverter : JsonConverter<Piece>
+	public class PieceConverter : System.Text.Json.Serialization.JsonConverter
 	{
-		public override Piece Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+		public Piece Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
 			if (reader.TokenType != JsonTokenType.StartObject)
 				throw new JsonException("Start of object not found");
@@ -42,7 +39,7 @@ namespace ChessServer.Services
 			}
 		}
 
-		public override void Write(Utf8JsonWriter writer, Piece value, JsonSerializerOptions options)
+		public void Write(Utf8JsonWriter writer, Piece value, JsonSerializerOptions options)
 		{
 			writer.WriteStartObject();
 			writer.WriteNumber("type", (int)value.Type);
@@ -51,7 +48,7 @@ namespace ChessServer.Services
 			writer.WriteEndObject();
 		}
 	}
-	public class PieceArrayConverter : JsonConverter<Piece[,]>
+	public class PieceArrayConverter : System.Text.Json.Serialization.JsonConverter
 	{
 		public override Piece[,] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{

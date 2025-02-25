@@ -21,9 +21,9 @@ namespace ChessServer
 				//options.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 				options.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 				//options.PayloadSerializerOptions.Converters.Add(new BoardConverter());
-				options.PayloadSerializerOptions.Converters.Add(new PieceArrayConverter());
-				options.PayloadSerializerOptions.Converters.Add(new PieceConverter());
-				options.PayloadSerializerOptions.Converters.Add(new MoveConverter());
+				// options.PayloadSerializerOptions.Converters.Add(new PieceArrayConverter());
+				// options.PayloadSerializerOptions.Converters.Add(new PieceConverter());
+				// options.PayloadSerializerOptions.Converters.Add(new MoveConverter());
 				
 			});
 			builder.Services.AddSingleton<WeatherForecastService>();

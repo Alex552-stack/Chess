@@ -1,12 +1,11 @@
-﻿namespace ChessLogic
+﻿namespace ChessLogic;
+
+public enum MoveType
 {
-    public enum MoveType
-    {
-        Normal,
-        CastleKS,
-        CastleQS,
-        DoublePawn,
-        EnPassant,
-        PawnPromotion
-    }
+    Normal,
+    CastleKs,
+    CastleQs,
+    DoublePawn,
+    EnPassant,
+    PawnPromotion
 }

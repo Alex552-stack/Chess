@@ -1,11 +1,10 @@
-﻿namespace ChessLogic
+﻿namespace ChessLogic;
+
+public enum EndReason
 {
-    public enum EndReason
-    {
-        Checkmate, //done
-        Stalemate, //done
-        FiftyMoveRule, //I have no ideea how
-        InsufficientMaterial, //Done
-        ThreeRepetitions //Done
-    }
+    Checkmate, //done
+    Stalemate, //done
+    FiftyMoveRule, //I have no ideea how
+    InsufficientMaterial, //Done
+    ThreeRepetitions //Done
 }

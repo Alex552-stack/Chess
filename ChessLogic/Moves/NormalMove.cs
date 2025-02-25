@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ChessLogic.Moves;
 
-namespace ChessLogic
+public class NormalMove : Move
 {
-    public class NormalMove : Move
+    public NormalMove(Position from, Position to)
     {
-        public NormalMove(Position from, Position to)
-        {
-            FromPos = from;
-            ToPos = to;
-        }
+        FromPos = from;
+        ToPos = to;
+    }
 
-        public override MoveType Type => MoveType.Normal;
-        public override Position FromPos { get; }
-        public override Position ToPos { get; }
+    public override MoveType Type => MoveType.Normal;
+    public override Position FromPos { get; }
+    public override Position ToPos { get; }
 
-        public override void Execute(Board board)
-        {
-            Piece piece = board[FromPos];
-            board[ToPos] = piece;
-            board[FromPos] = null;
-            piece.HasMoved = true;
-        }
+    public override void Execute(Board board)
+    {
+        var piece = board[FromPos];
+        board[ToPos] = piece;
+        board[FromPos] = null;
+        piece.HasMoved = true;
     }
 }

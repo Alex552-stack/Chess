@@ -1,9 +1,8 @@
-﻿namespace ChessLogic
+﻿namespace ChessLogic;
+
+public enum State
 {
-    public enum State
-    {
-        Playing,
-        Draw,
-        Win
-    }
+    Playing,
+    Draw,
+    Win
 }

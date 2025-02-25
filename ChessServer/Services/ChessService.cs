@@ -5,72 +5,72 @@ namespace ChessServer.Services
 {
     public class ChessService
     {
-        private Dictionary<String, GameState> ActiveGames = new Dictionary<string, GameState>();
+        private readonly Dictionary<String, GameState> _activeGames = new Dictionary<string, GameState>();
 
         public string[] StartGame()
         {
-            string gameIdW1Player = ActiveGames.FirstOrDefault(kv => kv.Value.PlayersCount == 1).Key;
+            var gameIdW1Player = _activeGames.FirstOrDefault(kv => kv.Value.PlayersCount == 1).Key;
             if(!string.IsNullOrEmpty(gameIdW1Player) )
             {
-                ActiveGames[gameIdW1Player].PlayersCount = 2;
-                return new string[] { gameIdW1Player, "2" };
+                _activeGames[gameIdW1Player].PlayersCount = 2;
+                return [gameIdW1Player, "2"];
             }		
-			string gameId = Guid.NewGuid().ToString();
+			var gameId = Guid.NewGuid().ToString();
 
-            Board board = Board.Initial();
-            GameState newGame = new GameState(Player.White, board);
-            ActiveGames.Add(gameId, newGame);
+            var board = Board.Initial();
+            var newGame = new GameState(Player.White, board);
+            _activeGames.Add(gameId, newGame);
 
 
-            return new string[] { gameId, "1" };
+            return [gameId, "1"];
 		}
 
         public GameState GetGameState(string gameId)
         {
-            return ActiveGames[gameId];
+            return _activeGames[gameId];
         }
 
         public int GetPlayersCount(string gameId)
         {
-            return ActiveGames[gameId].PlayersCount;
+            return _activeGames[gameId].PlayersCount;
         }
 
         public void IncrementPlayersCount(string gameId)
         {
-            ActiveGames[gameId].PlayersCount++;
+            _activeGames[gameId].PlayersCount++;
         }
 
         public bool MakeMove(string gameId, Move move)
         {
-            ActiveGames[gameId].MakeMove(move);
-            if (ActiveGames[gameId].IsGameOver())
+            _activeGames[gameId].MakeMove(move);
+            if (_activeGames[gameId].IsGameOver())
                 return false;
             return true;
         }
 
         public Board GetBoard(string gameId)
         {
-            return ActiveGames[gameId].Board;
+            return _activeGames[gameId].Board;
         }
 
 		public ChessLogic.Results GetResults(string gameId)
         {
-            return ActiveGames[gameId].Results;
+            return _activeGames[gameId].Results;
         }
 
         public Move[] GetPossibleMoves(string gameId, Position position)
         {
-            return ActiveGames[gameId].LegalMovesForPiece(position).ToArray();
+            return _activeGames[gameId].LegalMovesForPiece(position).ToArray();
         }
 
         public void PromotePawn(string gameId, PawnPromotion pawnPromotion, PieceType promotion)
         {
-            ActiveGames[gameId].PromotePawn(pawnPromotion, promotion);
+            _activeGames[gameId].PromotePawn(pawnPromotion, promotion);
         }
 
         public void RemoveGame(string gameId)
         {
-            ActiveGames.Remove(gameId);
+            _activeGames.Remove(gameId);
         }
     }
 }
