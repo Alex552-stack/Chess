@@ -1,63 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace ChessUI
+namespace ChessUI;
+
+/// <summary>
+///     Interaction logic for DetailsMenu.xaml
+/// </summary>
+public partial class DetailsMenu : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DetailsMenu.xaml
-    /// </summary>
-    public partial class DetailsMenu : UserControl
+    private TimeSpan _time;
+    private DispatcherTimer _timer;
+
+    public DetailsMenu()
     {
-        private DispatcherTimer Timer;
-        private TimeSpan Time;
-        public DetailsMenu()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public void InitializeTime(TimeSpan time)
-        {
-            Time = time;
-            Timer = new DispatcherTimer();
-            Timer.Interval = TimeSpan.FromSeconds(1);
-            Timer.Tick += Timer_Tick;
-            TimeDisplay.Text = Time.ToString(@"mm\:ss");
-        }
+    public void InitializeTime(TimeSpan time)
+    {
+        _time = time;
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromSeconds(1);
+        _timer.Tick += Timer_Tick;
+        TimeDisplay.Text = _time.ToString(@"mm\:ss");
+    }
 
-        public void StartTime()
-        {
-            Timer.Start();
-        }
+    public void StartTime()
+    {
+        _timer.Start();
+    }
 
-        public void StopTime()
-        {
-            Timer.Stop();
-        }
+    public void StopTime()
+    {
+        _timer.Stop();
+    }
 
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            Time = Time.Subtract(TimeSpan.FromSeconds(1));
-            TimeDisplay.Text = Time.ToString(@"mm\:ss");
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        _time = _time.Subtract(TimeSpan.FromSeconds(1));
+        TimeDisplay.Text = _time.ToString(@"mm\:ss");
 
-            if (Time.TotalSeconds <= 0)
-            {
-                // Timer 1 expired, handle accordingly
-                Timer.Stop();
-            }
-        }
+        if (_time.TotalSeconds <= 0)
+            // Timer 1 expired, handle accordingly
+            _timer.Stop();
     }
 }
