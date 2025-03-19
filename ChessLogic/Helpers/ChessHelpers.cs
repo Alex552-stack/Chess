@@ -1,4 +1,5 @@
-﻿using ChessLogic.Pieces;
+﻿using System.Text;
+using ChessLogic.Pieces;
 
 namespace ChessLogic.Helpers;
 
@@ -6,34 +7,37 @@ public static class ChessHelpers
 {
     public static string GetFenNotation(this Board board)
     {
-        string result = "";
-        int nullCtr = 0;
-        for (int i = 0; i < Board.Size; i++)
+        var sb = new StringBuilder();
+        var nullCtr = 0;
+
+        for (var i = 0; i < Board.Size; i++)
         {
-            for (int j = 0; j < Board.Size; j++)
+            for (var j = 0; j < Board.Size; j++)
             {
-                if (board[i, j] == null) nullCtr++;
+                if (board[i, j] == null)
+                    nullCtr++;
                 else
                 {
                     if (nullCtr != 0)
                     {
-                        result += $"{nullCtr}";
+                        sb.Append(nullCtr);
                         nullCtr = 0;
                     }
-
-                    result += $"{board[i, j].GetPieceTypeByColor()}";
+                    sb.Append(board[i, j].GetPieceTypeByColor());
                 }
             }
-            
+
             if (nullCtr != 0)
             {
-                result += $"{nullCtr}";
+                sb.Append(nullCtr);
                 nullCtr = 0;
             }
-            result += "/";
+
+            if (i < Board.Size - 1) // Avoid trailing "/"
+                sb.Append('/');
         }
 
-        return result;
+        return sb.ToString();
     }
 
         public static char GetPieceTypeByColor(this Piece piece)

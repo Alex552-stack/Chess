@@ -1,4 +1,5 @@
 ﻿using ChessLogic;
+using ChessLogic.Helpers;
 using ChessLogic.Moves;
 using ChessServer.Services;
 using Microsoft.AspNetCore.SignalR;
@@ -13,7 +14,7 @@ public class ChessHub(ChesService chessService) : Hub
         var gameData = chessService.StartGame();
 
         await Groups.AddToGroupAsync(connectionId, gameData[0]);
-        await Clients.Group(gameData[0]).SendAsync("GameStarted", gameData[0], chessService.GetBoard(gameData[0]));
+        await Clients.Group(gameData[0]).SendAsync("GameStarted", gameData[0], chessService.GetBoard(gameData[0]).GetFenNotation());
         await Clients.Caller.SendAsync("GetColor", gameData[1]);
     }
 

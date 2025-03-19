@@ -34,11 +34,27 @@ export default function GamePage() {
     // Function to create a game
     const createGame = async () => {
         if (connection) {
-            const newGameId = await connection.invoke<string>("CreateGame");
-            setGameId(newGameId);
-            console.log("Game Created:", newGameId);
+            await connection.invoke("CreateGame");
+            // setGameId(newGameId);
+            // console.log("Game Created:", newGameId);
         }
     };
+
+    useEffect(() => {
+        if (connection) {
+            connection.on("GameStarted", (gameId, fenNotation) => {
+                setGameId(gameId);
+                console.log("Game Started:", gameId, "FEN:", fenNotation);
+            });
+        }
+
+        return () => {
+            if (connection) {
+                connection.off("GameStarted");
+            }
+        };
+    }, [connection]);
+
 
     // Function to send a move to the server
     const handleMove = async (source: string, target: string, piece: any) => {
