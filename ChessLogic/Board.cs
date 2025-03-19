@@ -50,7 +50,7 @@ public class Board
         this[0, 4] = new King(Player.Black);
         this[0, 5] = new Bishop(Player.Black);
         this[0, 6] = new Knight(Player.Black);
-        this[0, 7] = new Rook(Player.Black);
+        this[4, 7] = new Rook(Player.Black);
 
         this[7, 0] = new Rook(Player.White);
         this[7, 1] = new Knight(Player.White);

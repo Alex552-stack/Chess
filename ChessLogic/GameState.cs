@@ -1,4 +1,7 @@
-﻿using ChessLogic.Moves;
+﻿using System.Text;
+using ChessLogic.Helpers;
+using ChessLogic.Moves;
+using ChessLogic.Pieces;
 
 namespace ChessLogic;
 
@@ -167,5 +170,65 @@ public class GameState
     public void PromotePawn(PawnPromotion move, PieceType promotion)
     {
         move.Promote(Board, promotion);
+    }
+    
+    public string GetFenNotation()
+    {
+        var sb = new StringBuilder();
+        var nullCtr = 0;
+
+        for (var i = 0; i < Board.Size; i++)
+        {
+            for (var j = 0; j < Board.Size; j++)
+            {
+                if (Board[i, j] == null)
+                    nullCtr++;
+                else
+                {
+                    if (nullCtr != 0)
+                    {
+                        sb.Append(nullCtr);
+                        nullCtr = 0;
+                    }
+                    sb.Append(Board[i, j].GetPieceTypeByColor());
+                }
+            }
+
+            if (nullCtr != 0)
+            {
+                sb.Append(nullCtr);
+                nullCtr = 0;
+            }
+
+            if (i < Board.Size - 1) // Avoid trailing "/"
+                sb.Append('/');
+        }
+        sb.Append(' ');
+        sb.Append(CurrentPlayer == Player.White ? 'w' : 'b'); // Assume gameState.Board.IsWhiteTurn tracks the active color
+
+        // Castling availability (KQkq or -)
+        // sb.Append(' ');
+        var castlingRights = " - - 0 1";
+        // if (gameState.Board.CanWhiteCastleKingSide) castlingRights += "K";
+        // if (gameState.Board.CanWhiteCastleQueenSide) castlingRights += "Q";
+        // if (gameState.Board.CanBlackCastleKingSide) castlingRights += "k";
+        // if (gameState.Board.CanBlackCastleQueenSide) castlingRights += "q";
+        sb.Append(string.IsNullOrEmpty(castlingRights) ? "-" : castlingRights);
+        //
+        // // En passant target square (e3 or -)
+        // sb.Append(' ');
+        // sb.Append(gameState.Board.EnPassantTargetSquare ?? "-"); // Assume this is stored or computed as gameState.Board.EnPassantTargetSquare
+        //
+        // // Halfmove clock
+        // sb.Append(' ');
+        // sb.Append(gameState.Board.HalfmoveClock); // Assume gameState.Board.HalfmoveClock tracks halfmoves
+        //
+        // // Fullmove number
+        // sb.Append(' ');
+        // sb.Append(gameState.Board.FullmoveNumber); // Assume gameState.Board.FullmoveNumber tracks fullmove number
+        //
+        // return sb.ToString();
+
+        return sb.ToString();
     }
 }

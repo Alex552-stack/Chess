@@ -45,6 +45,7 @@ export default function GamePage() {
             connection.on("GameStarted", (gameId, fenNotation) => {
                 setGameId(gameId);
                 console.log("Game Started:", gameId, "FEN:", fenNotation);
+                setGame(new Chess(fenNotation));
             });
         }
 
@@ -66,8 +67,13 @@ export default function GamePage() {
             promotion: piece[1].toLowerCase() ?? "q"
         });
 
+
         if (move && connection && gameId) {
-            await connection.invoke("MakeMove", gameId, move);
+            await connection.invoke("MakeMoveWeb", gameId, {
+            From: source,
+            To: target,
+            Prommotion: piece[1].toLowerCase() ?? "q"
+        });
         }
 
         setGame(gameCopy);

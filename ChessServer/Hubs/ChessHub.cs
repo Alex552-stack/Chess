@@ -1,6 +1,7 @@
 ﻿using ChessLogic;
 using ChessLogic.Helpers;
 using ChessLogic.Moves;
+using ChessServer.Models;
 using ChessServer.Services;
 using Microsoft.AspNetCore.SignalR;
 
@@ -14,10 +15,39 @@ public class ChessHub(ChesService chessService) : Hub
         var gameData = chessService.StartGame();
 
         await Groups.AddToGroupAsync(connectionId, gameData[0]);
-        await Clients.Group(gameData[0]).SendAsync("GameStarted", gameData[0], chessService.GetBoard(gameData[0]).GetFenNotation());
+        await Clients.Group(gameData[0]).SendAsync("GameStarted", gameData[0], chessService.GetState(gameData[0])?.GetFenNotation());
         await Clients.Caller.SendAsync("GetColor", gameData[1]);
     }
 
+    public async Task MakeMoveWeb(string gameId, MoveDto move)
+    {
+        try
+        {
+            if (!chessService.GameExists(gameId))
+            {
+                await Clients.Caller.SendAsync("Error", "Game not found.");
+                return;
+            }
+
+            var success = chessService.MakeMove(gameId, move.GetNormalMove());
+            if (!success)
+            {
+                await Clients.Group(gameId).SendAsync("GameOver", chessService.GetResults(gameId));
+                chessService.RemoveGame(gameId);
+                await Clients.Group(gameId).SendAsync("Disconnect");
+            }
+            else
+            {
+                await UpdateBoard(gameId);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Clients.Caller.SendAsync("Error", $"Unexpected error: {ex.Message}");
+        }
+    }
+    
+    //For WPF app
     public async Task MakeMove(string gameId, Move move)
     {
         try
@@ -77,6 +107,6 @@ public class ChessHub(ChesService chessService) : Hub
     private async Task UpdateBoard(string gameId)
     {
         if (!chessService.GameExists(gameId)) return;
-        await Clients.Group(gameId).SendAsync("UpdateBoard", chessService.GetBoard(gameId));
+        await Clients.Group(gameId).SendAsync("UpdateBoard", chessService.GetState(gameId)?.GetFenNotation());
     }
 }

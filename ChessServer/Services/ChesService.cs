@@ -43,6 +43,8 @@ public class ChesService
         }
 
         public Board GetBoard(string gameId) => GameExists(gameId) ? _activeGames[gameId].Board : null;
+        
+        public GameState? GetState(string gameId) => GameExists(gameId) ? _activeGames[gameId] : null;
 
         public ChessLogic.Results GetResults(string gameId) => GameExists(gameId) ? _activeGames[gameId].Results : null;
 
