@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import * as signalR from "@microsoft/signalr";
+import {Colors} from "../models/Colors.ts";
 
 export default function GamePage() {
     const [game, setGame] = useState(new Chess());
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [gameId, setGameId] = useState<string | null>(null);
+    const [xcolor,setColor] = useState<Colors | null>(null);
 
     // Initialize SignalR Connection
     useEffect(() => {
@@ -55,6 +57,15 @@ export default function GamePage() {
         setGame(gameCopy);
         return move !== null;
     };
+
+    useEffect(() => {
+        if(connection){
+            connection.on("GetColor", (color: Colors) => {
+                setColor(color);
+                console.log('Culoarea selectata: ' + xcolor)
+            })
+        }
+    }, [connection]);
 
     // Listen for board updates from the server
     useEffect(() => {

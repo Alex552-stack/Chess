@@ -6,7 +6,8 @@ namespace ChessLogic;
 [DataContract]
 public class Board
 {
-    [DataMember] public Piece[,] Pieces { get; set; } = new Piece[8, 8];
+    public static readonly int Size = 8;
+    [DataMember] public Piece[,] Pieces { get; set; } = new Piece[Size, Size];
     [DataMember] public bool WasLastPieceMovedPawn { get; set; }
     [DataMember] public Position LastPawnMoved;
     [DataMember] public bool WasLastMoveDouble { get; set; }
@@ -26,8 +27,8 @@ public class Board
     public override int GetHashCode()
     {
         var hashCode = 0;
-        for (var i = 0; i < 8; i++)
-        for (var j = 0; j < 8; j++)
+        for (var i = 0; i < Size; i++)
+        for (var j = 0; j < Size; j++)
             hashCode = HashCode.Combine(hashCode.GetHashCode(), Pieces[i, j]);
 
         return hashCode;
