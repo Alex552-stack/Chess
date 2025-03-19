@@ -1,0 +1,6 @@
+﻿services:
+  chessserver:
+    image: chessserver
+    build:
+      context: .
+      dockerfile: ChessServer/Dockerfile
