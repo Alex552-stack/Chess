@@ -44,7 +44,7 @@ public class GameState
     public IEnumerable<Move> LegalMovesForPiece(Position pos)
     {
         if (Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
-            return Enumerable.Empty<Move>();
+            return [];
 
         var piece = Board[pos];
         return piece.GetMoves(pos, Board).Where(move => !IsMoveLeavingOwnKingInCheck(move));
@@ -230,5 +230,10 @@ public class GameState
         // return sb.ToString();
 
         return sb.ToString();
+    }
+
+    public Piece GetPieceAt(Position position)
+    {
+        return Board[position];
     }
 }

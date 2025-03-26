@@ -3,7 +3,7 @@ using ChessLogic.Moves;
 
 namespace ChessServer.Services;
 
-public class ChesService
+public class ChesService : IChesService
 {
     private readonly Dictionary<string, GameState> _activeGames = new();
 

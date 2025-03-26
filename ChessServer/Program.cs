@@ -8,12 +8,15 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
-        // Add services to the container.
+        
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole();
 
         builder.Services.AddControllers();
-        builder.Services.AddSingleton<ChesService>();
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        
+        builder.Services.AddSingleton<IChesService,ChesService>();
+        builder.Services.AddSingleton<IMoveValidatorService,MoveValidatorService>();
+        
         builder.Services.AddOpenApi();
         builder.Services.AddSwaggerGen();
         builder.Services.AddSignalR();

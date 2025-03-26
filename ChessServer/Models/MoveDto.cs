@@ -6,9 +6,9 @@ namespace ChessServer.Models;
 //TODO: refactor this
 public class MoveDto
 {
-    public string From { get; set; }
-    public string To { get; set; }
-    public string Prommotion { get; set; }
+    public required string From { get; set; }
+    public required string To { get; set; }
+    public string Promotion { get; set; } = string.Empty;
     
     public NormalMove GetNormalMove()
     {
